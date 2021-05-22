@@ -1,0 +1,134 @@
+/* HeroesComponent's private CSS styles */
+@import 'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css';
+.selected {
+  background-color: #CFD8DC !important;
+  color: black;
+
+}
+.active-pink-2 input[type=text]:focus:not([readonly]) {
+  border-bottom: 1px solid #f48fb1;
+  box-shadow: 0 1px 0 0 #f48fb1;
+}
+.active-pink input[type=text] {
+  border: 0cm;
+  border-bottom: 1px solid #f48fb1;
+  box-shadow: 0 1px 0 0 #f48fb1;
+}
+
+.searchbar input {
+  width:80%;
+  margin-left: 20px;
+}
+
+.searchbar {
+  width: 80%;
+  margin: auto;
+  padding-bottom: 20px;
+  
+}
+
+.createDep {
+  margin: auto;
+  width: 80%;
+  align-items: flex-end;
+}
+
+.card {
+  margin: 10px auto 10px auto;
+  width: 80%;
+  -webkit-box-shadow: 3px 6px 19px 0px rgba(0,0,0,0.75);
+  -moz-box-shadow: 3px 6px 19px 0px rgba(0,0,0,0.75);
+  box-shadow: 3px 6px 19px 0px rgba(0,0,0,0.75);
+}
+
+.wrappersearch {
+  width: 100%;
+  float: right;
+  margin-left: 80%
+}
+
+.searchbar.form-control {
+  float: left;
+  display: block;
+  color: black;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+} 
+
+.searchbar a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+.searchbar a.active {
+  background-color: #2196F3;
+  color: white;
+}
+
+
+.deps {
+  margin: 0 0 2em 0;
+  list-style-type: none;
+  padding: 0;
+  width: 15em;
+  text-align: left;
+}
+
+  .deps li {
+    cursor: pointer;
+    position: relative;
+    left: 0;
+    background-color: #EEE;
+    margin: .5em;
+    padding: .3em 0;
+    height: 1.6em;
+    border-radius: 4px;
+  }
+
+    .deps li.selected:hover {
+      background-color: #BBD8DC !important;
+      color: white;
+    }
+
+    .deps li:hover {
+      color: #607D8B;
+      background-color: #DDD;
+      left: .1em;
+    }
+
+.deps .text {
+  position: relative;
+  top: -3px;
+}
+
+  .deps .badge {
+    display: inline-block;
+    font-size: small;
+    color: white;
+    padding: 0.8em 0.7em 0 0.7em;
+    background-color: #607D8B;
+    line-height: 1em;
+    position: relative;
+    left: -1px;
+    top: -4px;
+    height: 1.8em;
+    margin-right: .8em;
+    border-radius: 4px 0 0 4px;
+  }
+button {
+  background-color: #64A2E9;
+  border: none;
+  color: white;
+  padding: 5px 15px 5px 15px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 10px;
+}
+
+

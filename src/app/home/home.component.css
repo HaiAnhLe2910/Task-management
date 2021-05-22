@@ -1,0 +1,19 @@
+img {
+    border: 1px solid #edeeed;
+}
+.home{
+    display: grid;
+    grid-template-columns: auto auto auto;
+    width:90%;
+    text-align: center;
+    padding: 20px;
+    margin: 0px auto 0px auto;
+}
+a{
+    margin:20px;
+}
+.header {
+    text-align: center;
+    font-size: 35px;
+    font-weight: 700;
+}

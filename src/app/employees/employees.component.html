@@ -1,0 +1,139 @@
+<h1 style="margin-left:10%">
+    <button routerLink="/" routerLinkActive="active">Home</button>
+    <button routerLink="/department" routerLinkActive="active">Department</button>
+    <button routerLink="/task" routerLinkActive="active">Task</button>
+    <button routerLink="/employee" routerLinkActive="active">Employee</button>
+  </h1>
+<h1 style="text-align: center">{{title}}</h1>
+
+
+<div class="searchbar form-inline">
+  <div class="wrappersearch">
+  <i class="fa fa-search" aria-hidden="true"></i>
+  <input class="form-control" type="text" [(ngModel)]="EmployeeFilter.last_name" placeholder="Lastname"
+    aria-label="Search" mdbInputDirective>
+  </div>
+</div>
+
+<div class="createEmployee">
+  <button type="button" class="btn btn-lg btn-outline-primary" (click)="open3(create)" data-target="#create" ><i class="fa fa-plus" aria-hidden="true"></i> Add New Employee</button>
+</div>
+
+<div class="card">
+  <table class="table table-hover table-striped ">
+    <thead class="black white-text">
+      <tr>
+        <th class="bold" scope="col">ID</th>
+        <th class="bold" scope="col">First Name</th>
+        <th class="bold" scope="col">Last Name</th>
+        <th class="bold" scope="col">Department ID</th>
+        <th class="bold" scope="col">Edit</th>
+        <th class="bold" scope="col">Delete</th>
+      </tr>
+    </thead>
+    <tr *ngFor="let employee of employees | filterBy: EmployeeFilter" (click)="onSelect(employee)" [class.selected]="employee === selectedEmployee">
+      <th class="center" scope="col">{{employee.id}}</th>
+      <th class="center" scope="col">{{employee.first_name}}</th>
+      <th class="center" scope="col">{{employee.last_name}}</th>
+      <th class="center" scope="col">{{employee.department_id}}</th>
+      <th class="center" scope="col">
+        <button type="button" class="btn btn-sm btn-outline-primary mr-2" (click)="onSelect(employee);open1(edit)"
+          data-target="#edit"><i class="material-icons">
+            edit
+          </i></button>
+      </th>
+      <th class="center" scope="col">
+        <button type="button" class="btn btn-sm btn-outline-primary mr-2" (click)="onSelect(employee);open2(remove)" data-target="#remove"><i class="material-icons">
+            delete_outline
+          </i></button>
+      </th>
+      <th class="center" scope="col">
+    </th>
+    </tr>
+    <!-- <span class="badge">{{employee.id}}</span> {{employee.last_name}} -->
+  </table>
+  <tr *ngIf="(employees | filterBy: EmployeeFilter).length === 0">No matching elements</tr>
+</div>
+
+
+<!-- modal for creating -->
+<ng-template #create let-modal>
+  <div class="clearfix">
+    <div class="modal-header model-grey-color">
+      <h4 class="modal-title" id="ModalForm">Add a New Employee</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form>
+        <div class="form-group" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+          <label>First Name</label>
+          <input #employeeFName class="form-control" placeholder="">
+          <label>Last Name</label>
+          <input #employeeLName class="form-control" placeholder="">
+          <label>Department ID</label>
+          <input #DepartmentID class="form-control" placeholder="">
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer model-grey-color">
+      <button class="btn btn-success" (click)="add(employeeFName.value,employeeLName.value,DepartmentID.value);modal.close('Save click')"><i
+          class="glyphicon glyphicon-floppy-save"></i> Save</button>
+      <button type="button" class="btn btn-danger" (click)="modal.close('Close click')"><i class="glyphicon glyphicon-remove"></i>Close</button>
+    </div>
+  </div>
+
+</ng-template>
+
+<!-- modal for removing -->
+<ng-template #remove let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="ModalForm">Delete this Employee</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+  <div class="modal-body">
+    <div class="alert alert-danger"><span class="glyphicon glyphicon-warning-sign"></span><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Are you sure you want to
+      delete this Employee?</div>
+  </div>
+
+  <div class="modal-footer">
+    <div class="modal-footer ">
+      <button type="button" class="btn btn-success" (click)="removeIt(); modal.close('Yes click')" ><span class="glyphicon glyphicon-ok-sign"></span>Yes</button>
+      <button type="button" class="btn btn-danger" (click)="modal.close('Close click')"><i class="glyphicon glyphicon-remove"></i>No</button>
+    </div>
+  </div>
+</ng-template>
+
+<!-- modal for editing -->
+<ng-template #edit let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="ModalForm">Update Employee Detail</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+  <div class="modal-body">
+    <form>
+      <div class="form-group" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <label>First Name</label>
+        <input #employeeFname class="form-control" value="{{selectedEmployee.first_name}}">
+        <label>Last Name</label>
+        <input #employeeLname class="form-control" value="{{selectedEmployee.last_name}}">
+        <label>Department ID</label>
+        <input #DepasID class="form-control" value="{{selectedEmployee.department_id}}">
+      </div>
+    </form>
+  </div>
+
+  <div class="modal-footer">
+    <button class="btn btn-success" (click)="update(employeeFname.value,employeeLname.value,DepasID.value);modal.close('Save click')"><i class="glyphicon glyphicon-floppy-save"></i>
+      update</button>
+    <button type="button" class="btn btn-danger" (click)="modal.close('Close click')"><i class="glyphicon glyphicon-remove"></i>Close</button>
+  </div>
+
+</ng-template>

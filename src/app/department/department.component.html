@@ -1,0 +1,142 @@
+<h1 style="margin-left: 10%;">
+    <button routerLink="/" routerLinkActive="active">Home</button>
+    <button routerLink="/department" routerLinkActive="active">Department</button>
+    <button routerLink="/task" routerLinkActive="active">Task</button>
+    <button routerLink="/employee" routerLinkActive="active">Employee</button>
+  </h1>
+
+<h1 style="text-align: center">Department List</h1>
+
+<div class="searchbar form-inline">
+  <div class="wrappersearch">
+  <i class="fa fa-search" aria-hidden="true"></i>
+  <input class="form-control" type="text" [(ngModel)]="depFilter.name" placeholder="Department name"
+    aria-label="Search" mdbInputDirective>
+  </div>
+</div>
+
+
+
+<div class="createDep">
+  <button type="button" class="btn btn-lg btn-outline-primary" (click)="open3(create)" data-target="#create" ><i class="glyphicon glyphicon-plus">
+    </i> Add New Department</button>
+</div>
+
+
+<!-- <span>New department: <input type="text" #input1 placeholder="Name" />
+  <input type="number" #input2 placeholder="ID" />
+  <input type="text" #input3 placeholder="Building" />
+  <button (click)="addDep(input2.value,input1.value,input3.value)">Add</button> </span> -->
+
+
+<div class="card">
+<table class="table table-striped">
+  <tr>
+    <th>ID</th>
+    <th>Name</th>
+    <th>Building</th>
+    <th>Employees</th>
+    <th>Update</th>
+    <th>Delete</th>
+  </tr>
+  
+  <tr *ngFor="let depa of depas | filterBy: depFilter"
+  (click)="onSelect(depa)"
+  [class.selected]="depa === selectedDepa">
+  <th>{{depa.id}}</th>
+  <th>{{depa.name}}</th>
+  <th>{{depa.building}}</th>
+  <th>{{depa.employees}}</th>
+  <th>
+    <button type="button" class="btn btn-sm btn-outline-primary mr-2" (click)="onSelect(depa);open1(edit)"
+    data-target="#edit"><i class="material-icons">
+      edit
+    </i></button>
+  </th>
+  <th><button type="button" class="btn btn-sm btn-outline-primary mr-2" (click)="onSelect(depa);open2(remove)" data-target="#remove"><i class="material-icons">
+    delete
+  </i></button>
+</th>
+  <!-- <th><button type="button" class="btn btn-outline-primary" (click)="onSelect(depa);delete()">Delete</button></th> -->
+</tr>
+</table>
+</div>
+<ng-template #remove let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="ModalForm">Delete {{selectedDepa.name}} Department </h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+  <div class="modal-body">
+    <div class="alert alert-danger"><span class="glyphicon glyphicon-warning-sign"></span> Are you sure you want to
+      delete this Department?</div>
+  </div>
+
+  <div class="modal-footer">
+    <div class="modal-footer ">
+      <button type="button" class="btn btn-success" (click)="delete();modal.close('Yes click')"  ><span class="glyphicon glyphicon-ok-sign"></span> Yes</button>
+      <button type="button" class="btn btn-danger" (click)="modal.close('Close click')"><i class="glyphicon glyphicon-remove"></i>No</button>
+    </div>
+  </div>
+
+</ng-template>
+
+<ng-template #create let-modal>
+  <div class="clearfix">
+    <div class="modal-header model-grey-color">
+      <h4 class="modal-title" id="ModalForm">Add New Department</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form>
+        <div class="form-group" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+          <label>Department Name: </label>
+          <input #depName class="form-control" placeholder="">
+          <label>Building: </label>
+          <input #depBuilding class="form-control" placeholder="">
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer model-grey-color">
+      <button class="btn btn-success" (click)="addDep(depName.value,depBuilding.value);modal.close('Save click')"><i
+          class="glyphicon glyphicon-floppy-save"></i> Save</button>
+      <button type="button" class="btn btn-danger" (click)="modal.close('Close click')"><i class="glyphicon glyphicon-remove"></i>Close</button>
+    </div>
+  </div>
+
+</ng-template>
+
+<ng-template #edit let-modal>
+  <div class="clearfix">
+  <div class="modal-header">
+    <h4 class="modal-title" id="ModalForm">Update Department Detail: {{selectedDepa.name}} Department</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+  <div class="modal-body">
+      <form>
+        <div class="form-group" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+          <label>Department Name: </label>
+          <input #depNameUp class="form-control" value={{selectedDepa.name}}>
+          <label>Building: </label>
+          <input #depBuildingUp class="form-control" value={{selectedDepa.building}}>
+           
+        </div>
+
+      </form>
+    </div>
+    
+  <div class="modal-footer">
+    <button class="btn btn-success" (click)="update(depNameUp.value,depBuildingUp.value);modal.close('Save click')"><i class="glyphicon glyphicon-floppy-save"></i>
+      Save</button>
+    <button type="button" class="btn btn-danger" (click)="modal.close('Close click')"><i class="glyphicon glyphicon-remove"></i>Close</button>
+  </div>
+
+</div>
+</ng-template>

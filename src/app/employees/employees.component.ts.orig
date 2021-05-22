@@ -1,0 +1,52 @@
+import { Component, OnInit } from '@angular/core';
+import { Employee } from '../employee';
+import { EmployeeService } from '../employee.service';
+
+@Component({
+  selector: 'app-employees',
+  templateUrl: './employees.component.html',
+  styleUrls: ['./employees.component.css']
+})
+export class EmployeesComponent implements OnInit {
+  title = 'Employee List';
+  employees: Employee[];
+  selectedEmployee: Employee;
+
+
+<<<<<<< HEAD
+  ngOnInit() {this.getEmployees();}
+  
+=======
+  constructor(private employeeService: EmployeeService) { }
+
+  ngOnInit() {
+    this.getEmployees();
+  }
+
+>>>>>>> Employees
+  onSelect(employee: Employee): void {
+    this.selectedEmployee = employee;
+  }
+  add(id: number, last_name: string, department_id: number): void {
+    last_name = last_name.trim();
+    if (!last_name) { return; }
+    let employee={ id, last_name, department_id };
+    // this.employeeService.addEmployee({ id, last_name, department_id } as Employee)
+    //   .subscribe(employee => {
+    //     this.employees.push(employee);
+    //   });
+     this.employees.push(employee); 
+  }
+  remove(employee: Employee): void {
+    this.employees = this.employees.filter(e => e != employee)
+    this.employeeService.removeEmployee(employee).subscribe();
+  }
+
+  getEmployees(): void {
+    this.employeeService.getEmployees().subscribe(Employees => this.employees = Employees);
+  }
+
+  
+
+ 
+}
